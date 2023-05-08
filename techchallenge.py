@@ -1,7 +1,7 @@
 import time
 
 # Aqui está a função que verifica se a expressão está correta ou incorreta, por isso, "ci"
-def ci(x):
+def correct_incorrect(x):
     x = x.strip()
     expressao = list(x)
 
@@ -13,30 +13,29 @@ def ci(x):
     
     # a partir dessa condição, iniciei, as verificações caractere a caractere
     else:
-        # "p" para associar a ideia de "parenteses"
-        p = 0
-        for c in expressao:
+        parenteses = 0
+        for caractere in expressao:
             # comparo o elemento "c" com o símbolo "("
-            if c == "(":
-                p = p + 1
+            if caractere == "(":
+                parenteses = parenteses + 1
             # se ele for verdadeiro, somo 1 na variavel "p"
 
             # se o primeiro não for verdadeiro, comparo o elemento "c" com o símbolo ")"
-            elif c == ")":
-                p = p - 1
+            elif caractere == ")":
+                parenteses = parenteses - 1
                 # se "p" for negativo, há mais ")" do que "("
-                if p < 0:
+                if parenteses < 0:
                     return False
 
             # para qualquer outro caractere, ele verifica se há mais ")" do que "("
             else:
-                if p < 0:
+                if parenteses < 0:
                     return False
 
         # retorna falso se p ≠ de 0
             # se for maior possui mais "(" do que ")"
             # se for menor possui mais ")" do que "("
-        return p == 0
+        return parenteses == 0
 
 
 caminho = input("Digite o nome do arquivo: ")
@@ -57,8 +56,8 @@ with open(caminho, "r") as expressoes:
         verifico se o a expressao é verdadeira ou falsa, e faço a atribuição nessa lista
         '''
         conteudo = []
-        for e in texto:
-            if ci(e):
+        for expressao in texto:
+            if correct_incorrect(expressao):
                 conteudo.append("correct")
             else:
                 conteudo.append("incorrect")
